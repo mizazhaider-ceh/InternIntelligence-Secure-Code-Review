@@ -1,34 +1,57 @@
-
 # 🛡️ Secure Code Review - Python Application
 
 ## 📌 Overview
 
-This project involves a secure code review of a Python application that simulates a basic login system and file upload feature. The purpose of this task was to identify security flaws within the codebase and provide recommendations for mitigation.
+I reviewed a deliberately vulnerable Python app (a simple login system plus a file upload feature) for common security issues, documented every finding, and wrote the report as a formal task deliverable.
 
-## 🎯 Objectives
+- `codebase.py` — the intentionally vulnerable codebase that was reviewed
+- `codebase_fixed.py` — the same app rewritten with the fixes applied (parameterized queries, salted password hashes, sanitized uploads, no hardcoded credentials)
+- `FINDINGS.md` — short summary of the findings and recommendations
+- `Secure-Code-Review.pdf` — the full task report with analysis, findings, and recommendations
 
-- Review a vulnerable Python codebase for common security issues
-- Identify flaws like SQL injection, hardcoded credentials, and insecure file handling
-- Recommend practical solutions to enhance code security
-- Document the entire process in a formal security report
+> ⚠️ **Educational use only.** `codebase.py` is vulnerable on purpose. Do not use it as a base for real software.
 
-## 👤 Performed By
+## 🎯 What I did
 
-**Name:** Muhammad Izaz Haider
-**Role:** Penetration Tester
-**Assigned By:** Intern Intelligence
-**Date:** 7 April 2025
+- Reviewed the code for common flaws: SQL injection, hardcoded credentials, insecure file handling, missing input validation, plaintext password storage
+- Documented each finding with the exact vulnerable code and the risk it creates
+- Wrote practical remediation recommendations, then implemented them in `codebase_fixed.py`
+- Delivered the full process as a formal security report (`Secure-Code-Review.pdf`)
 
-## 🗂️ Project Files
+## 🗂️ Files
 
-- `codebase.py` – Python script containing the vulnerable codebase
-- `Secure-Code-Review.pdf` – Complete lab report with analysis, findings, and recommendations
-- `README.md` – Project summary and instructions
+| File | Purpose |
+|------|---------|
+| `codebase.py` | Vulnerable review target (educational, local use only) |
+| `codebase_fixed.py` | Secured version implementing the recommendations |
+| `FINDINGS.md` | Findings and recommendations summary |
+| `Secure-Code-Review.pdf` | Complete lab report with analysis, findings, and recommendations |
 
-## 📄 How to View the Report
+## ▶️ Running the code
 
-To explore the findings in detail, please download and open the `Secure-Code-Review.pdf` file.
+Both scripts use only the Python standard library. No install needed.
 
-## 📎 Summary
+```bash
+# Vulnerable version (for the review exercise, local use only)
+python3 codebase.py
 
-Through this task, I applied my penetration testing skills to identify real-world coding vulnerabilities and learned how to professionally document and report them. This project showcases the importance of secure coding and regular code reviews in the development lifecycle.
+# Fixed version (creates users_secure.db and an uploads/ folder)
+python3 codebase_fixed.py
+```
+
+The fixed version asks you to set an admin password on first run (or reads it from the `ADMIN_PASSWORD` environment variable) and stores it as a salted PBKDF2 hash.
+
+## 🔎 Key findings (short version)
+
+1. **Hardcoded credentials** — `admin` / `admin123` written into the database at startup
+2. **SQL injection** — login query built with string formatting
+3. **Unrestricted file upload** — no file type checks
+4. **No input validation** — path traversal possible via the filename
+5. **Plaintext password storage** — credentials readable by anyone with DB access
+
+## 👤 Task info
+
+**Muhammad Izaz Haider** — Penetration Tester
+Assigned by **Intern Intelligence** · Completed **7 April 2025**
+
+🔗 [LinkedIn](https://www.linkedin.com/in/muhammad-izaz-haider-091639314/)

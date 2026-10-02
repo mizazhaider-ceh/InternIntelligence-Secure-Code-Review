@@ -1,3 +1,15 @@
+"""
+INTENTIONALLY VULNERABLE - educational secure code review target.
+
+This script was written on purpose as a vulnerable codebase to review and
+report on for an internship task (see FINDINGS.md and Secure-Code-Review.pdf).
+It contains real vulnerabilities: hardcoded credentials, SQL injection,
+unrestricted file upload, path traversal, and plaintext password storage.
+
+Do NOT copy this code into a real application. For the secured version of
+the same app, see codebase_fixed.py.
+"""
+
 import os
 import sqlite3
 
